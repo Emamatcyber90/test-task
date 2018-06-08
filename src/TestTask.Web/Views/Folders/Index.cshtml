@@ -1,0 +1,41 @@
+﻿@model TestTask.Web.Models.CatalogViewModel
+
+@{
+    ViewBag.Title = Model.Name;
+}
+
+<h2>Folder: @Model.Path</h2>
+
+@if (!string.IsNullOrEmpty(Model.RootPath))
+{
+    <a href="@Model.RootPath">Parent</a>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+
+    @if (Model.Folders.Count > 0)
+    {
+        foreach (var folderName in Model.Folders)
+         {
+             <tr>
+                 <td>
+                     <a href="@string.Format("{0}/{1}", Model.Path == "/" ? "" : Model.Path, folderName)">@folderName</a>
+                 </td>
+             </tr>
+         }
+    }
+    else
+    {
+        <tr>
+            <td>
+                <p class="text-muted">Folder is empty!</p>
+            </td>
+        </tr>
+    }
+</table>
